@@ -1,4 +1,4 @@
-import 'package:demo_cubit/presentation/screens/counter_screen.dart';
+import 'package:demo_cubit/presentation/counter_screens/counter_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoute {

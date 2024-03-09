@@ -1,4 +1,4 @@
-import 'package:demo_cubit/presentation/counter_screens/counter_screen.dart';
+import 'package:demo_cubit/presentation/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoute {
@@ -6,11 +6,7 @@ class AppRoute {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-          builder: (context) => CounterScreen(),
-        );
-      default:
-        return MaterialPageRoute(
-          builder: (context) => CounterScreen(),
+          builder: (context) => LoginScreen(),
         );
     }
   }

@@ -1,7 +1,11 @@
-import 'package:demo_cubit/util/colors.dart';
+import 'package:demo_cubit/core/routes/routes.dart';
+import 'package:demo_cubit/core/util/colors.dart';
+import 'package:demo_cubit/presentation/auth/cubit/login_cubit.dart';
+import 'package:demo_cubit/presentation/auth/cubit/login_state.dart';
 import 'package:demo_cubit/widget/buttom.dart';
 import 'package:demo_cubit/widget/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -9,6 +13,7 @@ class LoginScreen extends StatelessWidget {
   final password = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final _loginCubit = BlocProvider.of<LoginCubit>(context);
     return Scaffold(
       backgroundColor: Colors.blue[300],
       body: SingleChildScrollView(
@@ -75,7 +80,8 @@ class LoginScreen extends StatelessWidget {
                         children: [
                           const Text(
                             'Username',
-                            style: TextStyle(fontSize: 18),
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w500),
                           ),
                           TextFieldCustom(
                             prefixIcon: const Icon(Icons.person),
@@ -86,7 +92,8 @@ class LoginScreen extends StatelessWidget {
                           const SizedBox(height: 18),
                           const Text(
                             'Password',
-                            style: TextStyle(fontSize: 18),
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w500),
                           ),
                           TextFieldCustom(
                             prefixIcon: const Icon(Icons.lock),
@@ -136,10 +143,18 @@ class LoginScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 40),
-              child: ButtomCustom(
-                bgColors: AppColor.buttom,
-                text: 'Login',
-                textColors: AppColor.texWhite,
+              child: GestureDetector(
+                onTap: () {
+                  _loginCubit.loginAuth(
+                      context,
+                      LoginState(
+                          username: username.text, password: password.text));
+                },
+                child: ButtomCustom(
+                  bgColors: AppColor.buttom,
+                  text: 'Login',
+                  textColors: AppColor.texWhite,
+                ),
               ),
             ),
             const SizedBox(height: 65),

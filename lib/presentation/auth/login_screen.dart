@@ -1,4 +1,3 @@
-import 'package:demo_cubit/core/routes/routes.dart';
 import 'package:demo_cubit/core/util/colors.dart';
 import 'package:demo_cubit/presentation/auth/cubit/login_cubit.dart';
 import 'package:demo_cubit/presentation/auth/cubit/login_state.dart';
@@ -9,8 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
+
   final username = TextEditingController();
+
   final password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final _loginCubit = BlocProvider.of<LoginCubit>(context);
@@ -95,15 +97,22 @@ class LoginScreen extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500),
                           ),
-                          TextFieldCustom(
-                            prefixIcon: const Icon(Icons.lock),
-                            controller: password,
-                            hintText: 'Enter password',
-                            suffixIcon: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.visibility_off),
+                          BlocBuilder(
+                            bloc: _loginCubit,
+                            builder: (context, state) => TextFieldCustom(
+                              prefixIcon: const Icon(Icons.lock),
+                              controller: password,
+                              hintText: 'Enter password',
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  _loginCubit.check();
+                                },
+                                icon: Icon(_loginCubit.state.check == true
+                                    ? Icons.visibility_off
+                                    : Icons.remove_red_eye),
+                              ),
+                              obscureText: _loginCubit.state.check,
                             ),
-                            obscureText: true,
                           ),
                           const SizedBox(height: 15),
                           Row(
